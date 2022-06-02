@@ -14,9 +14,9 @@ print(gutenberg.fileids())
 hamlet = gutenberg.raw('shakespeare-hamlet.txt')
 macbeth = gutenberg.raw('shakespeare-macbeth.txt')
 caesar = gutenberg.raw('shakespeare-caesar.txt')#print first 100 characters of each
-print('\nRaw:\n', hamlet[:100])
-print('\nRaw:\n', macbeth[:100])
-print('\nRaw:\n', caesar[:100])
+# print('\nRaw:\n', hamlet[:100])
+# print('\nRaw:\n', macbeth[:100])
+# print('\nRaw:\n', caesar[:100])
 
 #utility function for text cleaning
 def text_cleaner(text):
@@ -37,7 +37,7 @@ caesar = text_cleaner(caesar)
 macbeth = text_cleaner(macbeth)
 
 #parse cleaned novels
-nlp = spacy.load('en')
+nlp = spacy.load('en_core_web_sm')
 hamlet_doc = nlp(hamlet)
 macbeth_doc = nlp(macbeth)
 caesar_doc = nlp(caesar)
