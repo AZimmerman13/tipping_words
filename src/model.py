@@ -7,8 +7,24 @@ import warnings
 warnings.filterwarnings('ignore')
 nltk.download('gutenberg')
 
+"""
+{
+  "data": [
+    {
+      "id": "888790426995621888",
+      "name": "Tipping Pitches",
+      "username": "tipping_pitches"
+    }
+  ]
+}
+
+"""
+
+
+
+
 #inspect Gutenberg corpus
-print(gutenberg.fileids())
+# print(gutenberg.fileids())
 
 #import novels as text objects
 hamlet = gutenberg.raw('shakespeare-hamlet.txt')
@@ -48,14 +64,15 @@ caesar_sents = ' '.join([sent.text for sent in caesar_doc.sents if len(sent.text
 shakespeare_sents = hamlet_sents + macbeth_sents + caesar_sents
 
 #inspect our text
-print(shakespeare_sents)
+# print(shakespeare_sents)
 
 #create text generator using markovify
 generator_1 = markovify.Text(shakespeare_sents, state_size=3)
 
 #We will randomly generate three sentences
 for i in range(3):
-  print(generator_1.make_sentence())#We will randomly generate three more sentences of no more than 100 characters
+  print(generator_1.make_sentence())
+#We will randomly generate three more sentences of no more than 100 characters
 for i in range(3):
   print(generator_1.make_short_sentence(max_chars=100))
 
