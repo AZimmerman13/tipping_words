@@ -17,5 +17,6 @@ print(data['data'][0]['text'])
 #write the text to a new file
 with open('rawtext.txt', 'w') as f:
     for i in range(len(data['data'])):
-        f.write(str(data['data'][i]['text']))
-        f.write('\n')
+        f.write(str(data['data'][i]['text']).replace('\n'," ").strip())
+        # f.write(str(data['data'][i]['text']))
+        f.write('.\n')
