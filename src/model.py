@@ -67,7 +67,7 @@ tp_sents = ' '.join([sent.text for sent in tp_doc.sents if len(sent.text) > 1])
 # generator_1 = markovify.Text(shakespeare_sents, state_size=3)
 generator_1 = markovify.Text(tp_sents, state_size=2)
 
-
+'''
 #We will randomly generate three sentences
 print("\n\nrandomly generate three sentences:\n")
 for i in range(3):
@@ -96,10 +96,15 @@ for i in range(5):
 print("\n\nprint some POSified sentances with maxchar=280:\n")
 for i in range(5):
   print(generator_2.make_short_sentence(max_chars=280, tries=1000))
+'''
 
-tweet = generator_2.make_short_sentance(max_chars=280, tries=1000)
 
-do_tweet = input(f"The tweet will be:\n\n{tweet}\n\n Would you like to tweet this (y/n)...")
-if do_tweet = 'y':
-  twitter.update_status(status=tweet)
-else
+# loop to generate new tweets if you dont like the one you got 
+loop = True
+while loop=True:
+  tweet = generator_2.make_short_sentance(max_chars=280, tries=1000)
+  do_tweet = input(f"The tweet will be:\n\n{tweet}\n\n Would you like to tweet this (y/n)...")
+  if do_tweet = 'y':
+    twitter.update_status(status=tweet)
+  else:
+    continue
