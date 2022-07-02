@@ -32,15 +32,6 @@ ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
 APP_SECRET = os.getenv('APP_SECRET')
 ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
 
-# print(APP_KEY)
-# print(ACCESS_TOKEN)
-# print(APP_SECRET)
-
-# twitter = Twython(APP_KEY, APP_SECRET, oauth_version=2)
-# ACCESS_TOKEN = twitter.obtain_access_token()
-# twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
-
-#authenticating to access the twitter API
 auth=tweepy.OAuthHandler(APP_KEY,APP_SECRET)
 auth.set_access_token(ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
 api=tweepy.API(auth)
@@ -49,10 +40,6 @@ api=tweepy.API(auth)
 #import novels as text objects
 
 tp = open('rawtext.txt', 'r')
-# with open('rawtext.txt', 'r') as f:
-#   tp = f.readlines()
-
-# tp = 
 tp = tp.read()
 
 #utility function for text cleaning
@@ -102,7 +89,6 @@ class POSifiedText(markovify.Text):
       sentence = ' '.join(word.split('::')[0] for word in words)
       return sentence#Call the class on our text
 
-# generator_2 = POSifiedText(shakespeare_sents, state_size=3)
 generator_2 = POSifiedText(tp_sents, state_size=2)
 
 #now we will use the above generator to generate sentences
@@ -113,7 +99,6 @@ generator_2 = POSifiedText(tp_sents, state_size=2)
 # print("\n\nprint some POSified sentances with maxchar=280:\n")
 # for i in range(5):
 #   print(generator_2.make_short_sentence(max_chars=280, tries=1000))
-
 
 
 # loop to generate new tweets if you dont like the one you got 
