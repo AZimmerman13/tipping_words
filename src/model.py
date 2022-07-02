@@ -61,6 +61,8 @@ def text_cleaner(text):
   text = re.sub('[\[].*?[\]]', '', text)
   text = re.sub(r'(\b|\s+\-?|^\-?)(\d+|\d*\.\d+)\b','', text)
   text = re.sub(r'https(.*)(?=.)', '', text) # this line removes QTs and GIFs
+  text = re.sub(r'RT(.*)', '', text) #this line removes RTs
+  text = re.sub(r'\@[^\s]*\s', '', text) # this line removes @handles
   text = ' '.join(text.split())
   return text
 
