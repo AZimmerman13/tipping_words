@@ -44,7 +44,7 @@ def load_tweets():
     }
 
     params = {
-        'max_results': '100',
+        'max_results': '100'
     }
 
     response = requests.get('https://api.twitter.com/2/users/888790426995621888/tweets', params=params, headers=headers)

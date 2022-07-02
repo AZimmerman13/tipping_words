@@ -17,3 +17,5 @@ ACCESS_TOKEN_SECRET =
 run load_tweets.py to get 100 most recent tweets and add them to the corpus
 
 run model.py to generate tweets and post to twitter
+
+I cant figure out how the pagination feature works in the API so the way I do it is by adding `'until_id': '1526217709125607427'` to the params variable in load_tweets and that id should be the 'oldest_id' found at the bottom of the recently updated tweets.json
