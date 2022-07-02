@@ -1,15 +1,17 @@
 import spacy
 import re
+import os
+import tweepy
 import markovify
 import nltk
 from nltk.corpus import gutenberg
-from twython import Twython
+# from twython import Twython
 from dotenv import load_dotenv
 from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore')
 nltk.download('gutenberg')
-dotenv_path = Path(../)
+dotenv_path = Path('../.env')
 load_dotenv(dotenv_path=dotenv_path)
 
 """
@@ -27,8 +29,21 @@ load_dotenv(dotenv_path=dotenv_path)
 
 APP_KEY = os.getenv('APP_KEY')
 ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+APP_SECRET = os.getenv('APP_SECRET')
+ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
 
-twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
+# print(APP_KEY)
+# print(ACCESS_TOKEN)
+# print(APP_SECRET)
+
+# twitter = Twython(APP_KEY, APP_SECRET, oauth_version=2)
+# ACCESS_TOKEN = twitter.obtain_access_token()
+# twitter = Twython(APP_KEY, access_token=ACCESS_TOKEN)
+
+#authenticating to access the twitter API
+auth=tweepy.OAuthHandler(APP_KEY,APP_SECRET)
+auth.set_access_token(ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
+api=tweepy.API(auth)
 
 
 #import novels as text objects
@@ -67,15 +82,15 @@ tp_sents = ' '.join([sent.text for sent in tp_doc.sents if len(sent.text) > 1])
 # generator_1 = markovify.Text(shakespeare_sents, state_size=3)
 generator_1 = markovify.Text(tp_sents, state_size=2)
 
-'''
+
 #We will randomly generate three sentences
-print("\n\nrandomly generate three sentences:\n")
-for i in range(3):
-  print(generator_1.make_sentence(tries=1000))
+# print("\n\nrandomly generate three sentences:\n")
+# for i in range(3):
+#   print(generator_1.make_sentence(tries=1000))
 #We will randomly generate three more sentences of no more than 100 characters
-print("\n\nrandomly generate three more sentences of no more than 280 characters:\n")
-for i in range(3):
-  print(generator_1.make_short_sentence(max_chars=280))
+# print("\n\nrandomly generate three more sentences of no more than 280 characters:\n")
+# for i in range(3):
+#   print(generator_1.make_short_sentence(max_chars=280))
 
 #next we will use spacy's part of speech to generate more legible text
 class POSifiedText(markovify.Text):   
@@ -89,22 +104,23 @@ class POSifiedText(markovify.Text):
 generator_2 = POSifiedText(tp_sents, state_size=2)
 
 #now we will use the above generator to generate sentences
-print("\n\nprint some POSified sentances:\n")
-for i in range(5):
-  print(generator_2.make_sentence(tries=1000))
+# print("\n\nprint some POSified sentances:\n")
+# for i in range(5):
+  # print(generator_2.make_sentence(tries=1000))
 #print 100 characters or less sentences
-print("\n\nprint some POSified sentances with maxchar=280:\n")
-for i in range(5):
-  print(generator_2.make_short_sentence(max_chars=280, tries=1000))
-'''
+# print("\n\nprint some POSified sentances with maxchar=280:\n")
+# for i in range(5):
+#   print(generator_2.make_short_sentence(max_chars=280, tries=1000))
+
 
 
 # loop to generate new tweets if you dont like the one you got 
 loop = True
-while loop=True:
-  tweet = generator_2.make_short_sentance(max_chars=280, tries=1000)
+while loop==True:
+  tweet = generator_2.make_short_sentence(max_chars=280, tries=1000)
   do_tweet = input(f"The tweet will be:\n\n{tweet}\n\n Would you like to tweet this (y/n)...")
-  if do_tweet = 'y':
-    twitter.update_status(status=tweet)
+  if do_tweet == 'y':
+    api.update_status(status=tweet)
+    break
   else:
     continue
