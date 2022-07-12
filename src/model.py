@@ -60,6 +60,7 @@ tp = text_cleaner(tp)
 
 #parse cleaned tweets
 nlp = spacy.load('en_core_web_sm')
+nlp.max_length = 5000000
 tp_doc = nlp(tp)
 
 tp_sents = ' '.join([sent.text for sent in tp_doc.sents if len(sent.text) > 1])
@@ -89,7 +90,7 @@ class POSifiedText(markovify.Text):
       sentence = ' '.join(word.split('::')[0] for word in words)
       return sentence#Call the class on our text
 
-generator_2 = POSifiedText(tp_sents, state_size=2)
+generator_2 = POSifiedText(tp_sents, state_size=3)
 
 #now we will use the above generator to generate sentences
 # print("\n\nprint some POSified sentances:\n")
@@ -108,6 +109,10 @@ while loop==True:
   do_tweet = input(f"The tweet will be:\n\n{tweet}\n\n Would you like to tweet this (y/n)...")
   if do_tweet == 'y':
     api.update_status(status=tweet)
-    break
+    more_tweets = input(f"\nOkay I tweeted that out, do you want to keep going, you sicko? (y/n)...\n\n")
+    if more_tweets == 'y':
+      continue
+    else:
+      break
   else:
     continue
